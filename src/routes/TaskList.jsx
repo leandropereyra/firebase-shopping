@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../App";
 import {
   addNewTask,
   deleteTask,
@@ -14,6 +15,8 @@ const TaskList = () => {
   });
   const [tasks, setTasks] = useState([]);
   const [mode, setMode] = useState("add");
+
+  const { user } = useContext(AppContext)
 
   const createNewTask = async () => {
     await addNewTask(task);
@@ -70,6 +73,7 @@ const TaskList = () => {
               className={
                 "border shadow outline-none focus:ring ring-amber-600 rounded px-2 py-1 w-full"
               }
+              disabled={!user}
               onChange={(e) => setTask({ ...task, title: e.target.value })}
             />
           </div>
@@ -85,14 +89,16 @@ const TaskList = () => {
               onChange={(e) =>
                 setTask({ ...task, description: e.target.value })
               }
+              disabled={!user}
             ></textarea>
           </div>
           <div>
             <button
-              className="bg-amber-700 text-slate-100 py-2 px-3 rounded-full hover:bg-amber-800 transition w-full text-lg font-semibold uppercase"
+              className="bg-amber-700 text-slate-100 py-2 px-3 rounded-full hover:bg-amber-800 transition w-full text-lg font-semibold uppercase disabled:bg-amber-100"
               onClick={() =>
                 mode === "add" ? createNewTask() : updateExistingTask()
               }
+              disabled={!user}
             >
               {mode === "add" ? "Agregar Tarea" : "Actualizar Tarea"}
             </button>
@@ -131,6 +137,9 @@ const TaskList = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div>
+        { !user && <p className="text-red-700 font-semibold">Debes estar logueado para poder Administrar tus Tareas</p> }
         </div>
       </div>
     </div>

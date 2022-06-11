@@ -36,7 +36,6 @@ function App() {
         {route === "register" && <Register />}
         {route === "shopping" && <Shopping />}
         {route === "taskList" && <TaskList />}
-        { user && <p>Usuario loqueado: {user.email}</p> }
       </main>
       <Footer/>
     </AppContext.Provider>
