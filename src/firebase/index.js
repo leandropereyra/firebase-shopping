@@ -46,7 +46,6 @@ getToken(messaging, {
 const sendTokenToServer = (token) => {
   //para que se almacene una sola vez por cliente
   if (localStorage.getItem("tokenSentToServer")) return;
-  //TODO:Implementar logica de que en el servidor se almacene el token
   //Else:
   localStorage.setItem("tokenSentToServer", "1");
 };

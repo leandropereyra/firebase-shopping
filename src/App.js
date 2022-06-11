@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { app, messaging } from "./firebase";
+import { messaging } from "./firebase";
 import Header from "./components/Header";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
@@ -12,15 +12,17 @@ import TaskList from "./routes/TaskList";
 
 export const AppContext = createContext(null);
 
-onMessage( messaging, payload =>{
+onMessage(messaging, (payload) => {
   // console.log('Nueva notificacion en directo: ', payload);
-  toast.custom(t =>(
+  toast.custom((t) => (
     <div className="bg-amber-500 p-4 rounded-lg shadow-lg">
-      <h1 className="text-lg font-semibold text-slate-100">{payload.notification.title}</h1>
+      <h1 className="text-lg font-semibold text-slate-100">
+        {payload.notification.title}
+      </h1>
       <p className="text-slate-100">{payload.notification.body}</p>
     </div>
   ));
-} )
+});
 
 function App() {
   const [route, setRoute] = useState("home");
@@ -37,7 +39,7 @@ function App() {
         {route === "shopping" && <Shopping />}
         {route === "taskList" && <TaskList />}
       </main>
-      <Footer/>
+      <Footer />
     </AppContext.Provider>
   );
 }

@@ -1,5 +1,4 @@
 //Crearemos toda la lógica de BBDD para las tasks
-import { async } from "@firebase/util";
 import { collection, addDoc, getDocs, setDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from ".";
 
@@ -33,9 +32,17 @@ export const updateTask = async (task) => {
   await setDoc(doc(db, "tasks", task.id), {
     title: task.title,
     description: task.description,
+    completed: false
   });
 };
 
 export const deleteTask = async (id) =>{
     await deleteDoc(doc(db, 'tasks', id))
 }
+
+export const completeTask = async (task) => {
+  await setDoc(doc(db, "tasks", task.id), {
+    ...task,
+    completed: !task.completed
+  });
+};

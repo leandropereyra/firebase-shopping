@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
 import {
   GoogleAuthProvider,
@@ -25,8 +26,8 @@ const Login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log("Token: ", token);
-        console.log("User: ", user);
+        // console.log("Token: ", token);
+        // console.log("User: ", user);
         toast("Inicio de sesión válido");
         setUser(user)
         // ...

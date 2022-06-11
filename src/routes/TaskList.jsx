@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
 import {
   addNewTask,
+  completeTask,
   deleteTask,
   getTasks,
   updateTask,
@@ -16,13 +17,16 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [mode, setMode] = useState("add");
 
-  const { user } = useContext(AppContext)
+  const { user } = useContext(AppContext);
 
   const createNewTask = async () => {
+    if ((task.title && task.description) === "") return;
     await addNewTask(task);
-    setTask({
+    setTask(
+      {
       title: "",
       description: "",
+      completed: false
     });
     InitializeTask();
   };
@@ -51,6 +55,12 @@ const TaskList = () => {
     });
     InitializeTask();
     setMode("add");
+  };
+
+  const toggleCompletedTask = async (id) => {
+    const taskToComplete = tasks.find((t) => t.id === id);
+    await completeTask(taskToComplete);
+    InitializeTask();
   };
 
   useEffect(() => {
@@ -133,13 +143,25 @@ const TaskList = () => {
                       Eliminar Tareas
                     </button>
                   </div>
+                  <div>
+                    <button
+                      className="bg-amber-700 text-slate-100 py-1 px-3 rounded-full hover:bg-amber-800 transition text-lg "
+                      onClick={() => toggleCompletedTask(task.id)}
+                    >
+                      Completar Tarea
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
         <div>
-        { !user && <p className="text-red-700 font-semibold">Debes estar logueado para poder Administrar tus Tareas</p> }
+          {!user && (
+            <p className="text-red-700 font-semibold">
+              Debes estar logueado para poder Administrar tus Tareas
+            </p>
+          )}
         </div>
       </div>
     </div>
