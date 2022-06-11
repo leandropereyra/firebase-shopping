@@ -26,7 +26,7 @@ const Header = () => {
         onClick={() => setRoute("home")}
       >
         <FaPhoenixSquadron className="text-2xl text-red-600" />
-        <span className="text-xl font-semibold text-red-600">FireShopping v2</span>
+        <span className="text-xl font-semibold text-red-600">FireShopping v3</span>
       </div>
       <div className="flex gap-2">
         {user ? (
